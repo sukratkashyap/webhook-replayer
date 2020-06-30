@@ -13,14 +13,13 @@ namespace WebhookReplayer.Tests
     public static class ApplicationTesting
     {
         public static TestWebApplicationFactory Factory;
-        public static HttpClient Client;
+        public static HttpClient Client => Factory.CreateDefaultClient();
 
 
         [OneTimeSetUp]
         public static void OneTimeSetUp()
         {
             Factory = new TestWebApplicationFactory();
-            Client = Factory.CreateClient();
         }
 
         [OneTimeTearDown]
