@@ -38,6 +38,7 @@ namespace WebhookReplayer
             {
                 services.AddSingleton<IProxyHttpClient, LinuxProxyHttpClient>();
             }
+            services.AddSingleton<ProxyRequest>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

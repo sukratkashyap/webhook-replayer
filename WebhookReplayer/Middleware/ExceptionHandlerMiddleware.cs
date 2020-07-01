@@ -31,8 +31,7 @@ namespace WebhookReplayer.Middleware
                 await response.WriteAsync(JsonConvert.SerializeObject(new
                 {
                     Type = ex.GetType().Name,
-                    ex.Message,
-                    ex.StackTrace
+                    ex.Message
                 }, Formatting.Indented));
             }
         }

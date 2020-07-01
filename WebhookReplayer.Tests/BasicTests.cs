@@ -42,9 +42,8 @@ namespace WebhookReplayer.Tests
             var response = await _sut.GetAsync("/test/path");
             response.StatusCode.Should().Be(500);
             var body = await response.Content.ToJson<JObject>();
-            body.Value<string>("Type").Should().Be("Exception");
+            body.Value<string>("Type").Should().Be("InvalidOperationException");
             body.Value<string>("Message").Should().Be("Query parameter _to=URL is missing!");
-            body.Value<string>("StackTrace").Should().NotBeNullOrWhiteSpace();
         }
 
         [Test]
@@ -53,20 +52,15 @@ namespace WebhookReplayer.Tests
             var response = await _sut.GetAsync("/test/path?_to=&hello=test");
             response.StatusCode.Should().Be(500);
             var body = await response.Content.ToJson<JObject>();
-            body.Value<string>("Type").Should().Be("Exception");
+            body.Value<string>("Type").Should().Be("InvalidOperationException");
             body.Value<string>("Message").Should().Be("Query parameter _to is null or empty!");
-            body.Value<string>("StackTrace").Should().NotBeNullOrWhiteSpace();
         }
 
         [Test]
-        public async Task UriParsingError()
+        public async Task UriWithoutScheme()
         {
-            var response = await _sut.GetAsync("/test/path?_to=gogle.cm&go=go");
-            response.StatusCode.Should().Be(500);
-            var body = await response.Content.ToJson<JObject>();
-            body.Value<string>("Type").Should().Be("UriFormatException");
-            body.Value<string>("Message").Should().Be("Invalid URI: gogle.cm/test/path?go=go");
-            body.Value<string>("StackTrace").Should().NotBeNullOrWhiteSpace();
+            var response = await _sut.GetAsync("/?_to=google.com&go=go");
+            response.StatusCode.Should().Be(200);
         }
     }
 }
