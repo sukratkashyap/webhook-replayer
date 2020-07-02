@@ -15,6 +15,11 @@ http://webhook-replayer.company.com/?_to=https://realwebhook.com
 ## Running locally
 
 ```bash
+export http_proxy=""
+export https_proxy=""
+```
+
+```bash
 # Running project
 dotnet run --project WebhookReplayer
 
@@ -24,7 +29,16 @@ dotnet test
 
 ## Docker Image
 
-
+```bash
+docker run -d \
+    -e http_proxy="" \
+    -e https_proxy="" \
+    -e no_proxy="" \
+    -p 5000:80 \
+    --name "webhook-replayer" \
+    --restart always \
+    sukratkashyap/webhook-replayer:latest
+```
 
 ## Contribution
 
