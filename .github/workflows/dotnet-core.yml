@@ -33,5 +33,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: sukratkashyap/webhook-replayer
           tags: latest
-          path: "./WebhookReplayer"
-          dockerfile: Dockerfile
+          path: WebhookReplayer/
+          dockerfile: WebhookReplayer/Dockerfile
